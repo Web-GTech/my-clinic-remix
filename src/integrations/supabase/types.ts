@@ -14,6 +14,190 @@ export type Database = {
   }
   public: {
     Tables: {
+      client_medical_records: {
+        Row: {
+          attachments: Json | null
+          client_id: string
+          complaints: string | null
+          created_at: string
+          created_by: string
+          diagnosis: string | null
+          id: string
+          observations: string | null
+          record_date: string
+          record_type: string
+          treatment_plan: string | null
+          updated_at: string
+        }
+        Insert: {
+          attachments?: Json | null
+          client_id: string
+          complaints?: string | null
+          created_at?: string
+          created_by: string
+          diagnosis?: string | null
+          id?: string
+          observations?: string | null
+          record_date?: string
+          record_type: string
+          treatment_plan?: string | null
+          updated_at?: string
+        }
+        Update: {
+          attachments?: Json | null
+          client_id?: string
+          complaints?: string | null
+          created_at?: string
+          created_by?: string
+          diagnosis?: string | null
+          id?: string
+          observations?: string | null
+          record_date?: string
+          record_type?: string
+          treatment_plan?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_medical_records_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      client_medications_history: {
+        Row: {
+          adverse_reactions: string | null
+          application_method: string | null
+          applied_at: string
+          applied_by: string
+          batch_number: string | null
+          client_id: string
+          created_at: string
+          dosage: string | null
+          expiry_date: string | null
+          id: string
+          medication_name: string
+          product_id: string | null
+          service_id: string | null
+        }
+        Insert: {
+          adverse_reactions?: string | null
+          application_method?: string | null
+          applied_at?: string
+          applied_by: string
+          batch_number?: string | null
+          client_id: string
+          created_at?: string
+          dosage?: string | null
+          expiry_date?: string | null
+          id?: string
+          medication_name: string
+          product_id?: string | null
+          service_id?: string | null
+        }
+        Update: {
+          adverse_reactions?: string | null
+          application_method?: string | null
+          applied_at?: string
+          applied_by?: string
+          batch_number?: string | null
+          client_id?: string
+          created_at?: string
+          dosage?: string | null
+          expiry_date?: string | null
+          id?: string
+          medication_name?: string
+          product_id?: string | null
+          service_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_medications_history_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_medications_history_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_medications_history_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      client_procedures: {
+        Row: {
+          client_id: string
+          created_at: string
+          id: string
+          notes: string | null
+          performed_at: string
+          performed_by: string
+          photos: Json | null
+          product_id: string | null
+          reactions: string | null
+          service_id: string | null
+        }
+        Insert: {
+          client_id: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          performed_at?: string
+          performed_by: string
+          photos?: Json | null
+          product_id?: string | null
+          reactions?: string | null
+          service_id?: string | null
+        }
+        Update: {
+          client_id?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          performed_at?: string
+          performed_by?: string
+          photos?: Json | null
+          product_id?: string | null
+          reactions?: string | null
+          service_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_procedures_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_procedures_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_procedures_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clients: {
         Row: {
           address: string | null
@@ -110,6 +294,89 @@ export type Database = {
         }
         Relationships: []
       }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          notes: string | null
+          paid_at: string | null
+          payment_method: string
+          service_id: string
+          status: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          payment_method: string
+          service_id: string
+          status?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          payment_method?: string
+          service_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          active: boolean | null
+          cost: number | null
+          created_at: string
+          description: string | null
+          id: string
+          min_stock_alert: number | null
+          name: string
+          price: number
+          stock_quantity: number | null
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean | null
+          cost?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          min_stock_alert?: number | null
+          name: string
+          price: number
+          stock_quantity?: number | null
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean | null
+          cost?: number | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          min_stock_alert?: number | null
+          name?: string
+          price?: number
+          stock_quantity?: number | null
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -175,41 +442,104 @@ export type Database = {
           },
         ]
       }
+      service_items: {
+        Row: {
+          created_at: string
+          discount: number | null
+          id: string
+          notes: string | null
+          product_id: string
+          quantity: number
+          service_id: string
+          subtotal: number
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          discount?: number | null
+          id?: string
+          notes?: string | null
+          product_id: string
+          quantity?: number
+          service_id: string
+          subtotal: number
+          unit_price: number
+        }
+        Update: {
+          created_at?: string
+          discount?: number | null
+          id?: string
+          notes?: string | null
+          product_id?: string
+          quantity?: number
+          service_id?: string
+          subtotal?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_items_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       services: {
         Row: {
           client_id: string
+          completed_at: string | null
+          completed_by: string | null
           created_at: string
           created_by: string
           id: string
           notes: string | null
+          payment_status: string | null
           service_date: string
           service_time: string
           service_type: string
           status: string | null
+          total_amount: number | null
           updated_at: string
         }
         Insert: {
           client_id: string
+          completed_at?: string | null
+          completed_by?: string | null
           created_at?: string
           created_by: string
           id?: string
           notes?: string | null
+          payment_status?: string | null
           service_date: string
           service_time: string
           service_type: string
           status?: string | null
+          total_amount?: number | null
           updated_at?: string
         }
         Update: {
           client_id?: string
+          completed_at?: string | null
+          completed_by?: string | null
           created_at?: string
           created_by?: string
           id?: string
           notes?: string | null
+          payment_status?: string | null
           service_date?: string
           service_time?: string
           service_type?: string
           status?: string | null
+          total_amount?: number | null
           updated_at?: string
         }
         Relationships: [
