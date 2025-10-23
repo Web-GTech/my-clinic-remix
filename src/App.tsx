@@ -10,9 +10,13 @@ import Auth from "./pages/Auth";
 import Recepcao from "./pages/Recepcao";
 import Medicacao from "./pages/Medicacao";
 import Doutor from "./pages/Doutor";
+import DoutorNew from "./pages/DoutorNew";
 import Painel from "./pages/Painel";
 import PainelPublico from "./pages/PainelPublico";
 import Chat from "./pages/Chat";
+import Produtos from "./pages/Produtos";
+import ClienteDetalhes from "./pages/ClienteDetalhes";
+import Financeiro from "./pages/Financeiro";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,7 +52,31 @@ const App = () => (
               path="/doutor"
               element={
                 <ProtectedRoute allowedRoles={["doutor"]}>
-                  <Doutor />
+                  <DoutorNew />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/produtos"
+              element={
+                <ProtectedRoute allowedRoles={["recepcionista", "doutor"]}>
+                  <Produtos />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/cliente/:id"
+              element={
+                <ProtectedRoute allowedRoles={["recepcionista", "medicacao", "doutor"]}>
+                  <ClienteDetalhes />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/financeiro"
+              element={
+                <ProtectedRoute allowedRoles={["doutor"]}>
+                  <Financeiro />
                 </ProtectedRoute>
               }
             />
